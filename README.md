@@ -1,3 +1,41 @@
+# github-project-to-psql
+
+This repository is a fork from https://github.com/fiedl/github-project-to-csv, adding a bash script (<code>update.sh</code>) to:
+- Run <code>github-project-to-csv.rb</code> to export a Github project V2 to a csv,
+- Copy the csv to a PostgreSQL table.
+
+## How to run?
+The bash script is tailored-made for a given GitHub ProjectV2. The following from <code>update.sh</code> should be adapted to your use-case:
+- Link to the Github project
+- Database and table name
+- table structure
+
+Then, simply run:
+```shell
+bash update.sh
+```
+
+## Leverage Github token
+
+To skip the authentication part of the script, you can use the --token option when running the <code>github-project-to-csv.rb</code> script.
+
+## Troobleshoot
+
+### Ruby version in bash
+In case you face Ruby errors (typically syntax errors) when running the ruby script, it could be linked to the wrong ruby installation being used. Make sure the script runs with the correct ruby installation.
+If your Ruby installation comes from Homebre, you can do the following:
+```shell
+open -e ~/.zshrc
+```
+Add the following lines to the file:
+```shell
+# Add Homebrew Ruby installation first in $PATH
+if [ -d "/opt/homebrew/opt/ruby/bin" ]; then
+  export PATH=/opt/homebrew/opt/ruby/bin:$PATH
+  export PATH=`gem environment gemdir`/bin:$PATH
+fi
+```
+
 # github-project-to-csv
 
 Simple cli to export github v2 projects to csv
