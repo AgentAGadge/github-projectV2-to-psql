@@ -250,7 +250,7 @@ class GithubProjectItem < GithubQuery
     "##{result.dig("content", "number")}" if result.dig("content", "number")
   end
 
-  def title
+  def complete_title
     [number, field_value_attributes["Title"]].join(" ")
   end
 
@@ -262,7 +262,7 @@ class GithubProjectItem < GithubQuery
     {
       id: id,
       number: number,
-      title: title
+      complete_title: complete_title
     }
   end
 
