@@ -1,6 +1,8 @@
 #!/bin/bash
+#!/usr/bin/env ruby
+
 echo 'Retrieve Project AgentAGadge 2 from Github to csv...'
-sudo ./github-project-to-csv/github-project-to-csv.rb --project=https://github.com/users/AgentAGadge/projects/2 --output project2.csv;
+sudo ./github-project-to-csv.rb --project=https://github.com/users/AgentAGadge/projects/2 --output project2.csv;
 echo 'OK'
 
 echo 'Create project2 table'
