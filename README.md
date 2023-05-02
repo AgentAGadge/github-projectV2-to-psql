@@ -1,7 +1,18 @@
 # github-projectV2-to-psql
 
 This repository is a fork from https://github.com/fiedl/github-project-to-csv, adding scripts to setup and update PostgreSQL database and table to host the ProjectV2 data retrieved from GitHub.
+
+## Main features
+
+This project allows to setup a PostgreSQL environment (databases, tables and users) to store Github ProjectV2 data retrieve from GitHub GraphQL API.
+ProjectV2 can be retrieved with a one-shot connection to GitHub or with a token. The rerieved data is stored as a .csv (see original project). The .csv is then copied into a dedicated table in the PostgreSQL database.
+
 ## How to run?
+
+### Requirements
+
+This project needs a PostgreSQL installation to run as it uses psql commands.
+There are additional dependencies coming from https://github.com/fiedl/github-project-to-csv: Ruby with Httparty and pry.
 
 ### Configuration
 
@@ -39,11 +50,13 @@ This will:
 - Store it as a .csv
 - Load this csv in the database
 
-## Leverage Github token
+## Advanced features
+
+### Leverage Github token
 
 To skip the authentication part of the script, you can set a Github token in your config file by un-commenting the line declaring <code>gh_token</code>.
 
-## Automating with crontab
+### Automating with crontab
 
 Here is an example on how to setup a cronjob to frequently update your database:
 ```shell
@@ -56,7 +69,7 @@ Here is an example on how to setup a cronjob to frequently update your database:
 
 Refer to https://www.geekbitzone.com/posts/macos/crontab/macos-schedule-tasks-with-crontab/ for more details on crontab.
 
-## Troobleshoot
+## Troubleshoot
 
 ### Ruby version in bash
 In case you face Ruby errors (typically syntax errors) when running the ruby script, it could be linked to the wrong ruby installation being used. Make sure the script runs with the correct ruby installation.
