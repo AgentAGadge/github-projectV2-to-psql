@@ -1,5 +1,5 @@
 *.csv
-
+*.log
 *.config
 # Except the default/example one
 !default.config

@@ -41,6 +41,18 @@ This will:
 
 To skip the authentication part of the script, you can set a Github token in your config file by un-commenting the line declaring <code>gh_token</code>.
 
+## Automating with crontab
+
+Here is an example on how to setup a cronjob to frequently update your database:
+```shell
+0 9 * * * cd /Users/mathieulamiot/Documents/Perso/GitHub/github-project-to-psql/github-projectV2-to-psql/ && bash script/update.sh config/aag_project2.config >> cron.log
+```
+- The job will run everyday at 9AM.
+- The job goes to the <code>github-projectV2-to-psql</code> repository and runs the <code>update.sh</code> script with a custom configuration.
+- The "echo" outputs are written into a <code>cron.log</code> file
+
+Refer to https://www.geekbitzone.com/posts/macos/crontab/macos-schedule-tasks-with-crontab/ for more details on crontab.
+
 ## Troobleshoot
 
 ### Ruby version in bash
@@ -63,7 +75,6 @@ You may need to grant access to the folder in which you will create .csv files. 
 ```shell
 sudo chown -R $(whoami) /Users/mathieulamiot/Documents/Perso/GitHub/github-project-to-psql/github-projectV2-to-psql/csv/
 ```
-
 # github-project-to-csv
 
 Simple cli to export github v2 projects to csv
