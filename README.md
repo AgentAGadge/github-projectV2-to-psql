@@ -58,6 +58,12 @@ if [ -d "/opt/homebrew/opt/ruby/bin" ]; then
 fi
 ```
 
+### Permission denied @ rb_sysopen
+You may need to grant access to the folder in which you will create .csv files. To do so, run a command similar to:
+```shell
+sudo chown -R $(whoami) /Users/mathieulamiot/Documents/Perso/GitHub/github-project-to-psql/github-projectV2-to-psql/csv/
+```
+
 # github-project-to-csv
 
 Simple cli to export github v2 projects to csv

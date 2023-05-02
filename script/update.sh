@@ -16,15 +16,15 @@ echo 'Retrieve Project from Github to csv...'
 if [[ -z ${gh_token+x} ]];
 then
     echo 'no Github token provided'
-    sudo ./github-project-to-csv.rb --project="$gh_project" --output "$csv_file";
+    ./github-project-to-csv.rb --project="$gh_project" --output "$csv_file";
 else
     echo 'a Github token is provided'
-    sudo ./github-project-to-csv.rb --project="$gh_project" --output "$csv_file"  --token "$gh_token";
+    ./github-project-to-csv.rb --project="$gh_project" --output "$csv_file"  --token "$gh_token";
 fi
 echo 'OK'
 
 echo 'Create table'
-sudo -H -- psql -U "$db_user" -d "$db_name" -c "
+psql -U "$db_user" -d "$db_name" -c "
     DROP TABLE IF EXISTS "$db_table";
 
     CREATE TABLE "$db_table" (
@@ -34,7 +34,7 @@ sudo -H -- psql -U "$db_user" -d "$db_name" -c "
 echo 'OK'
 
 echo 'Copy csv to table'
-sudo -H -- psql -U "$db_user" -d "$db_name" -c "
+psql -U "$db_user" -d "$db_name" -c "
     
     COPY "$db_table"
     FROM '"$csv_file"'
