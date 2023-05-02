@@ -1,4 +1,4 @@
-# github-project-to-psql
+# github-projectV2-to-psql
 
 This repository is a fork from https://github.com/fiedl/github-project-to-csv, adding a bash script (<code>update.sh</code>) to:
 - Run <code>github-project-to-csv.rb</code> to export a Github project V2 to a csv,
