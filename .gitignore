@@ -1,1 +1,6 @@
 *.csv
+
+*.config
+# Except the default/example one
+!default.config
+

@@ -1,23 +1,45 @@
 # github-projectV2-to-psql
 
-This repository is a fork from https://github.com/fiedl/github-project-to-csv, adding a bash script (<code>update.sh</code>) to:
-- Run <code>github-project-to-csv.rb</code> to export a Github project V2 to a csv,
-- Copy the csv to a PostgreSQL table.
-
+This repository is a fork from https://github.com/fiedl/github-project-to-csv, adding scripts to setup and update PostgreSQL database and table to host the ProjectV2 data retrieved from GitHub.
 ## How to run?
-The bash script is tailored-made for a given GitHub ProjectV2. The following from <code>update.sh</code> should be adapted to your use-case:
-- Link to the Github project
-- Database and table name
-- table structure
 
-Then, simply run:
+### Configuration
+
+Modify the <code>config/default.config</code> file (or create another file based on this template) and fill your information:
+- gh_project: a link to your GitHub projectV2
+- gh_token(optional): a GitHub token
+- csv_file: full path to the csv file in which your project data will be stored. You can target the <code>csv</code> folder in the repository.
+- db_name: name of the postgres database to store your GitHub data
+- db_user: username to connect to the database
+- db_password: password to set for the user of the database
+- db_table: table in which the Github project data will be stored
+- db_model: model of the table. It should match the fields from you GitHub ProjectV2. In case you don't know, you can run the <code>script/update.sh</code> to get a csv file and explore your data first: each column in the CSV should have a column in the PostgreSQL table.
+
+### Setting up the database
+
+To set up the database, run <code>script/setup_db.sh</code> with bash. If you want to use a customized config file, you should run:
 ```shell
-bash update.sh
+bash script/setup_db.sh config/your_config_file.config
 ```
+This will:
+- create the database
+- create the user
+- grant the rights needed to this user
+
+### Sync data from GitHub
+
+To get data from GitHub and store it in .csv, then in the database, run <code>script/update.sh</code> with bash. If you want to use a customized config file, you should run:
+```shell
+bash script/update.sh config/your_config_file.config
+```
+This will:
+- Query ProjectV2 data from Github
+- Store it as a .csv
+- Load this csv in the database
 
 ## Leverage Github token
 
-To skip the authentication part of the script, you can use the --token option when running the <code>github-project-to-csv.rb</code> script.
+To skip the authentication part of the script, you can set a Github token in your config file by un-commenting the line declaring <code>gh_token</code>.
 
 ## Troobleshoot
 
