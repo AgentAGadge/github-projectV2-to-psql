@@ -12,8 +12,6 @@ else
     echo 'OK'
 fi
 
-echo "$gh_token"
-
 echo 'Retrieve Project from Github to csv...'
 if [[ -z ${gh_token+x} ]];
 then
