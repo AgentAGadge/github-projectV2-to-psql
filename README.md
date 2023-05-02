@@ -7,12 +7,13 @@ This repository is a fork from https://github.com/fiedl/github-project-to-csv, a
 
 Modify the <code>config/default.config</code> file (or create another file based on this template) and fill your information:
 - gh_project: a link to your GitHub projectV2
-- gh_token(optional): a GitHub token
+- gh_token (optional): a GitHub token
 - csv_file: full path to the csv file in which your project data will be stored. You can target the <code>csv</code> folder in the repository.
 - db_name: name of the postgres database to store your GitHub data
 - db_user: username to connect to the database
 - db_password: password to set for the user of the database
 - db_table: table in which the Github project data will be stored
+- db_backup (optional): full path to a backup file of the database, to be loaded once the database is created. Only .sql.gz (zipped files) are supported for now. They can be obtained with <code>pg_dump mydatabase | gzip > mydb.sql.gz</code>
 - db_model: model of the table. It should match the fields from you GitHub ProjectV2. In case you don't know, you can run the <code>script/update.sh</code> to get a csv file and explore your data first: each column in the CSV should have a column in the PostgreSQL table.
 
 ### Setting up the database
@@ -23,6 +24,7 @@ bash script/setup_db.sh config/your_config_file.config
 ```
 This will:
 - create the database
+- Load a backup file, if provided (see Configuration)
 - create the user
 - grant the rights needed to this user
 
@@ -45,11 +47,12 @@ To skip the authentication part of the script, you can set a Github token in you
 
 Here is an example on how to setup a cronjob to frequently update your database:
 ```shell
-0 9 * * * cd /Users/mathieulamiot/Documents/Perso/GitHub/github-project-to-psql/github-projectV2-to-psql/ && bash script/update.sh config/aag_project2.config >> cron.log
+0 9 * * * cd /Users/mathieulamiot/Documents/Perso/GitHub/github-project-to-psql/github-projectV2-to-psql/ && bash script/update.sh config/aag_project2.config >> cron.log && pg_dump mydatabase | gzip > /Users/mathieulamiot/Documents/Perso/database/mydatabase_backup.sql.gz 
 ```
 - The job will run everyday at 9AM.
 - The job goes to the <code>github-projectV2-to-psql</code> repository and runs the <code>update.sh</code> script with a custom configuration.
-- The "echo" outputs are written into a <code>cron.log</code> file
+- The "echo" outputs are written into a <code>cron.log</code> file.
+- The job then creates a zipped back-up file of the database.
 
 Refer to https://www.geekbitzone.com/posts/macos/crontab/macos-schedule-tasks-with-crontab/ for more details on crontab.
 
